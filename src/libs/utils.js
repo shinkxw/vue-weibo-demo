@@ -1,6 +1,8 @@
 'use strict'
 
 let _ = require('lodash');
+let crypto = require("crypto");
+let Buffer = require("buffer").Buffer;
 
 
 let getCheck = {
@@ -81,6 +83,13 @@ const MillisecondToDate = function(msd) {
     return str;
 }
 
+const md5 = function(data) {
+    var buf = new Buffer(data);
+    var str = buf.toString("binary");
+    return crypto.createHash("md5").update(str).digest("hex");
+}
+
 exports.getCheck = getCheck;
 exports.fmtDate = fmtDate;
 exports.MillisecondToDate = MillisecondToDate;
+exports.md5 = md5;
