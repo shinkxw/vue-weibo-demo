@@ -6,6 +6,7 @@ import VueResource from 'vue-resource'
 import Resources from './resources'
 import RouterMap from './router'
 import Filters from './filters'
+require('bootstrap-loader');
 
 Vue.use(Router)
 var router = new Router()

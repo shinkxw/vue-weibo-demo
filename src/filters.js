@@ -18,3 +18,7 @@ exports.getLastTimeStr = (time, friendly) => {
 exports.md5 = (str) => {
   return utils.md5(str);
 }
+
+exports.gravatar_url = (str) => {
+  return "https://secure.gravatar.com/avatar/" + utils.md5(str);
+}

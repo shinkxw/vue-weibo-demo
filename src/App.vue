@@ -1,28 +1,40 @@
 <template>
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Vue Weibo Demo</a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a v-link="{ name: 'index' }">首页</a></li>
-          <li><a v-link="{ name: 'micropost_list' }">微博</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container" id="main">
+<header-view></header-view>
+  <div class="container">
     <router-view></router-view>
+    <footer-view></footer-view>
   </div>
 </template>
 
-<!-- <style src="./assets/css/app-base.css"></style> -->
-<style>
-  body {
-    padding-top: 50px;
+<script>
+  export default {
+    data() {
+      return {
+        microposts: []
+      }
+    },
+    route:{
+      data: function (transition) {
+        return {
+          microposts: micropost_resource.get().then((res) => { return res.json() })
+        }
+      }
+    },
+    methods:{
+      deleteMicropost(mid, index){
+        if (confirm('此操作将不可恢复，确定要删除吗？'))
+        {
+          micropost_resource.delete({id: mid}).then((response) => {
+            this.microposts.splice(index, 1)// success callback
+          }, (response) => {
+            // error callback
+          });
+        }
+      }
+    },
+    components:{
+      "headerView": require('./views/_header.vue'),
+      "footerView": require('./views/_footer.vue')
+    }
   }
-  #main {
-    padding-top: 1rem;
-  }
-</style>
+</script>

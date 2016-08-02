@@ -23,6 +23,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
+      },
+      {
         test: /\.css$/,
         loader: 'css'
       },
@@ -33,6 +37,14 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'vue-html'
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: 'fonts/[name].[hash:7].[ext]'
+        }
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
