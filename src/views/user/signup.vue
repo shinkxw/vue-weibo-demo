@@ -1,0 +1,43 @@
+<template>
+  <h1>注册用户</h1>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <error-messages-view :errors="errors"></error-messages-view>
+      <field-input :m="user" f="name" t="text" l="用户名" :e="errors"></field-input>
+      <field-input :m="user" f="email" t="email" l="邮箱地址" :e="errors"></field-input>
+      <field-input :m="user" f="password" t="password" l="密码" :e="errors"></field-input>
+      <field-input :m="user" f="password_confirmation" t="password" l="确认密码" :e="errors"></field-input>
+      <input class="btn btn-primary" type="button" @click="userSignup" value="创建我的用户" />
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        user: {},
+        errors: ''
+      }
+    },
+    methods: {
+      userSignup(){
+        user_resource.save(this.user).then((response) => {
+          let u_id = response.json().id
+          this.$route.router.go({name:'user_show', params: { id: u_id }, query: { alert: '创建用户成功', alert_type: 'success' }})
+        }, (response) => {
+          switch(response.status)
+          {
+            case 422:
+              this.errors = response.json()
+              break
+            default:
+              alert(response.status)
+              alert(response.statusText)
+              alert(response.text())
+          }
+        });
+      }
+    }
+  }
+</script>

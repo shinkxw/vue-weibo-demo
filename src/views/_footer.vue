@@ -7,7 +7,7 @@
     <nav>
       <ul>
         <li><a v-link="{ name: 'index' }">关于本站</a></li>
-        <li><a v-link="{ name: 'index' }">联系我</a></li>
+        <li><a v-link="{ name: 'contact' }">联系我</a></li>
       </ul>
     </nav>
   </footer>
