@@ -10,7 +10,7 @@
     props: ['m', 'f', 't', 'l', 'e'],//'model', 'field', 'type', 'label', 'errors'
     computed: {
       field_error: function () {
-        return this.e[this.f]
+        return this.e ? this.e[this.f] : ''
       }
     }
   }
