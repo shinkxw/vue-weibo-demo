@@ -6,23 +6,23 @@ let Buffer = require("buffer").Buffer;
 
 
 let getCheck = {
-    checkEmail: function(val) {
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (filter.test(val)) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    checkPhone: function(val) {
-        var filter = /^1\d{10}$/;
-
-        if (filter.test(val)) {
-            return true;
-        } else {
-            return false;
-        }
+  checkEmail: function(val) {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(val)) {
+      return true;
+    } else {
+      return false;
     }
+  },
+  checkPhone: function(val) {
+    var filter = /^1\d{10}$/;
+
+    if (filter.test(val)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 
@@ -35,21 +35,21 @@ let getCheck = {
  *   (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
  */
 const fmtDate = function(date, fmt) { //author: meizz
-    var o = {
-        "M+": date.getMonth() + 1, //月份
-        "d+": date.getDate(), //日
-        "h+": date.getHours(), //小时
-        "m+": date.getMinutes(), //分
-        "s+": date.getSeconds(), //秒
-        "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-        "S": date.getMilliseconds() //毫秒
-    };
-    if (/(y+)/.test(fmt))
-        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt))
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
+  var o = {
+    "M+": date.getMonth() + 1, //月份
+    "d+": date.getDate(), //日
+    "h+": date.getHours(), //小时
+    "m+": date.getMinutes(), //分
+    "s+": date.getSeconds(), //秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+    "S": date.getMilliseconds() //毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
 }
 
 
@@ -57,36 +57,35 @@ const fmtDate = function(date, fmt) { //author: meizz
  * 由于moment库加进来太大了，自定义了formnow函数，待完善阶段
  */
 const MillisecondToDate = function(msd) {
-    var time = parseFloat(msd) / 1000;
-    var str ="";
-    if (null != time && "" != time) {
-
-        if (time > 60 && time < 3600) {
-            str = parseInt(time / 60.0) + " 分钟前";
-        }
-        else if (time >= 3600 && time < 86400) {
-            str = parseInt(time / 3600.0) + " 小时前" ;
-        }
-        else if (time >= 86400 && time < 86400*30) {
-            str = parseInt(time / 86400.0) + " 天前" ;
-        }
-        else if (time >= 86400*30 && time < 86400*365) {
-            str = parseInt(time / (86400.0*30)) + " 个月前" ;
-        }
-        else if(time >= 86400*365){
-            str = parseInt(time / (86400.0*365)) + " 年前" ;
-        }
-        else {
-            str = parseInt(time) + " 秒前";
-        }
+  var time = parseFloat(msd) / 1000;
+  var str ="";
+  if (null != time && "" != time) {
+    if (time > 60 && time < 3600) {
+      str = parseInt(time / 60.0) + " 分钟前";
     }
-    return str;
+    else if (time >= 3600 && time < 86400) {
+      str = parseInt(time / 3600.0) + " 小时前" ;
+    }
+    else if (time >= 86400 && time < 86400*30) {
+      str = parseInt(time / 86400.0) + " 天前" ;
+    }
+    else if (time >= 86400*30 && time < 86400*365) {
+      str = parseInt(time / (86400.0*30)) + " 个月前" ;
+    }
+    else if(time >= 86400*365){
+      str = parseInt(time / (86400.0*365)) + " 年前" ;
+    }
+    else {
+      str = parseInt(time) + " 秒前";
+    }
+  }
+  return str;
 }
 
 const md5 = function(data) {
-    var buf = new Buffer(data);
-    var str = buf.toString("binary");
-    return crypto.createHash("md5").update(str).digest("hex");
+  var buf = new Buffer(data, 'utf8');
+  var str = buf.toString("binary");
+  return crypto.createHash("md5").update(str, 'utf8').digest("hex");
 }
 
 exports.getCheck = getCheck;

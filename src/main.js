@@ -8,6 +8,7 @@ import ComponentsMap from './components'
 import RouterMap from './router'
 import Filters from './filters'
 require('bootstrap-loader');
+window.utils = require('./libs/utils')
 
 Vue.use(Router)
 var router = new Router()
@@ -19,4 +20,4 @@ Resources(Vue)
 Object.keys(Filters).forEach(k => Vue.filter(k, Filters[k]));
 
 ComponentsMap(Vue)
-router.start(require('./App.vue'), 'app')
+router.start(require('./app.vue'), 'app')
