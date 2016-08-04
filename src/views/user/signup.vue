@@ -2,7 +2,7 @@
   <h1>注册用户</h1>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <error-messages-view :errors="errors"></error-messages-view>
+      <error-message-view :message="error_message"></error-message-view>
       <field-input :m="user" f="name" t="text" l="用户名" :e="errors"></field-input>
       <field-input :m="user" f="email" t="email" l="邮箱地址" :e="errors"></field-input>
       <field-input :m="user" f="password" t="password" l="密码" :e="errors"></field-input>
@@ -17,7 +17,8 @@
     data() {
       return {
         user: {},
-        errors: ''
+        errors: '',
+        error_message: ''
       }
     },
     methods: {
@@ -30,6 +31,7 @@
           {
             case 422:
               this.errors = response.json()
+              this.error_message = '输入有错误'
               break
             default:
               alert(response.status)
