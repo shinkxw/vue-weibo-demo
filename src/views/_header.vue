@@ -6,9 +6,39 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a v-link="{ name: 'index' }">主页</a></li>
           <li><a v-link="{ name: 'index' }">帮助</a></li>
-          <li><a v-link="{ name: 'index' }">登录</a></li>
+          <template v-if="is_logged">
+            <li><a v-link="{ name: 'index' }">用户</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                账户 <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a v-link="{ name: 'index' }">个人信息</a></li>
+                <li><a v-link="{ name: 'index' }">设置</a></li>
+                <li class="divider"></li>
+                <li> <a href="#" @click="log_out">登出</a></li>
+              </ul>
+            </li>
+          </template>
+          <li v-else><a v-link="{ name: 'user_login' }">登录</a></li>
         </ul>
       </nav>
     </div>
   </header>
 </template>
+
+<script>
+  export default {
+    methods: {
+      log_out(){
+        login_info.log_out()
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .dropdown-menu {
+    right: inherit !important;
+  }
+</style>
