@@ -20,6 +20,9 @@ module.exports = function(router){
         '/signup': {
           name: 'user_signup', component: require('./views/user/signup.vue')
         },
+        '/login': {
+          name: 'user_login', component: require('./views/user/login.vue')
+        }
       }
     },
     '/micropost': {

@@ -1,6 +1,9 @@
 module.exports = function(Vue){
   Vue.http.options.root = 'http://localhost:3000/api/v1'
 
+  var userActions = {
+    login: {method: 'POST', url: 'users/login'}
+  }
   window.user_resource = Vue.resource('users{/id}', {}, userActions)
   window.micropost_resource = Vue.resource('microposts{/id}')
 
