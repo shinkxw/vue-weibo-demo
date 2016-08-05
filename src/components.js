@@ -1,8 +1,10 @@
 module.exports = function(Vue){
-  //shared views
+  //复用页面
   Vue.component('errorMessageView', require('./views/shared/error_message.vue'))
 
-  //components
+  //组件
   Vue.component('fieldInput', require('./components/field_input.vue'))
 
+  //实例
+  require('./data/login_info.js')(Vue)
 }
