@@ -2,14 +2,15 @@
   <h1>用户登录</h1>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <form accept-charset="UTF-8" action="/login" method="post">
-        <error-message-view :message="error_message"></error-message-view>
-        <field-input :m="user" f="email" t="text" l="邮箱地址"></field-input>
-        <field-input :m="user" f="password" t="password" l="密码"></field-input>
-        <input class="btn btn-primary" type="button" @click="userLogin" value="登录" />
-      </form>
+      <error-message-view :message="error_message"></error-message-view>
+      <field-input :m="user" f="email" t="text" l="邮箱地址"></field-input>
+      <field-input :m="user" f="password" t="password" l="密码"></field-input>
+      <label class="checkbox inline">
+        <input id="remember_me" type="checkbox" v-model="need_remember">
+        <span>记住登录状态</span>
+      </label>
+      <input class="btn btn-primary" type="button" @click="userLogin" value="登录" />
       <p>新用户? <a v-link="{ name: 'user_signup' }">现在注册!</a></p>
-
     </div>
   </div>
 </template>
@@ -19,7 +20,8 @@
     data() {
       return {
         user: {},
-        error_message: ''
+        error_message: '',
+        need_remember: login_info.is_remember
       }
     },
     methods: {
@@ -28,7 +30,7 @@
         {
           user_resource.login(this.user).then((response) => {
             let jwt = response.text()
-            login_info.log_in(jwt)
+            login_info.log_in(jwt, this.need_remember)
             this.flash('登录成功', 'success')
             this.$route.router.go({name:'user_show', params: { id: login_info.user.id }})
           }, (response) => {

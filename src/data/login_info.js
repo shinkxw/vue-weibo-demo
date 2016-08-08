@@ -2,19 +2,40 @@ module.exports = function(Vue){
   window.login_info = new Vue({
     data: {
       jwt: null,
-      user: null
+      user: null,
+      is_remember: false
     },
     created: function () {
-      let auth_jwt = sessionStorage.getItem("auth_jwt")
-      if (auth_jwt)
+      let session_jwt = sessionStorage.getItem("auth_jwt")
+      if (session_jwt)
       {
-        this.set_data(auth_jwt)
+        this.set_data(session_jwt)
+      }
+      else
+      {
+        let local_jwt = localStorage.getItem("auth_jwt")
+        if (local_jwt)
+        {
+          this.set_data(local_jwt)
+          this.is_remember = true
+        }
       }
     },
     methods: {
-      log_in: function (jwt) {
+      log_in: function (jwt, need_remember) {
         this.set_data(jwt)
-        sessionStorage.setItem('auth_jwt', jwt)//存储jwt
+        if (need_remember)
+        {
+          localStorage.setItem('auth_jwt', jwt)
+          sessionStorage.removeItem("auth_jwt")
+          this.is_remember = true
+        }
+        else
+        {
+          sessionStorage.setItem('auth_jwt', jwt)
+          localStorage.removeItem("auth_jwt")
+          this.is_remember = false
+        }
       },
       set_data: function (jwt) {
         this.jwt = jwt
@@ -24,7 +45,7 @@ module.exports = function(Vue){
         this.jwt = null
         this.user = null
         sessionStorage.removeItem("auth_jwt")
-        // localStorage.removeItem("auth_jwt")
+        localStorage.removeItem("auth_jwt")
       }
     }
   })
