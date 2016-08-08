@@ -24,14 +24,16 @@
     methods: {
       userSignup(){
         user_resource.save(this.user).then((response) => {
-          let u_id = response.json().id
-          this.$route.router.go({name:'user_show', params: { id: u_id }, query: { alert: '创建用户成功', alert_type: 'success' }})
+          let jwt = response.text()
+          login_info.log_in(jwt)
+          this.flash('创建用户成功', 'success')
+          this.$route.router.go({name:'user_show', params: { id: login_info.user.id }})
         }, (response) => {
           switch(response.status)
           {
             case 422:
               this.errors = response.json()
-              this.error_message = '输入有错误'
+              this.error_message = '输入有误'
               break
             default:
               alert(response.status)

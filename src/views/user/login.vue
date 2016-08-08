@@ -29,7 +29,8 @@
           user_resource.login(this.user).then((response) => {
             let jwt = response.text()
             login_info.log_in(jwt)
-            this.$route.router.go({name:'user_show', params: { id: login_info.user.id }, query: { alert: ' 登录成功', alert_type: 'success' }})
+            this.flash('登录成功', 'success')
+            this.$route.router.go({name:'user_show', params: { id: login_info.user.id }})
           }, (response) => {
             switch(response.status)
             {
