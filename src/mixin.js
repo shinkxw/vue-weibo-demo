@@ -7,6 +7,11 @@ module.exports = function(Vue){
       }
     },
     methods: {
+      log_out(){
+        login_info.log_out()
+        this.flash('已登出')
+        this.$route.router.go({name:'index'})
+      }
     }
   }
 

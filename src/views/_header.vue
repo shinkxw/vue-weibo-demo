@@ -27,16 +27,6 @@
   </header>
 </template>
 
-<script>
-  export default {
-    methods: {
-      log_out(){
-        login_info.log_out()
-      }
-    }
-  }
-</script>
-
 <style scoped>
   .dropdown-menu {
     right: inherit !important;
