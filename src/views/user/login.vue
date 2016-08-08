@@ -4,7 +4,10 @@
     <div class="col-md-6 col-md-offset-3">
       <error-message-view :message="error_message"></error-message-view>
       <field-input :m="user" f="email" t="text" l="邮箱地址"></field-input>
-      <field-input :m="user" f="password" t="password" l="密码"></field-input>
+      <div class="form-group">
+        <label> 密码 </label>
+        <input class="form-control" type="password" @keyup.enter="userLogin" v-model="user.password"/>
+      </div>
       <label class="checkbox inline">
         <input id="remember_me" type="checkbox" v-model="need_remember">
         <span>记住登录状态</span>
