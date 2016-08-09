@@ -23,6 +23,9 @@ module.exports = function(router){
             '/signup': {
               name: 'user_signup', component: require('./views/user/signup.vue')
             },
+            '/edit/:id': {
+              name: 'user_edit', component: require('./views/user/edit.vue')
+            },
             '/login': {
               name: 'user_login', component: require('./views/user/login.vue')
             }
