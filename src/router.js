@@ -16,18 +16,19 @@ module.exports = function(router){
         '/user': {
           name: 'user',
           component: require('./views/user/layout.vue'),
+          auth: true,
           subRoutes: {
             '/:id': {
               name: 'user_show', component: require('./views/user/show.vue')
             },
             '/signup': {
-              name: 'user_signup', component: require('./views/user/signup.vue')
+              name: 'user_signup', component: require('./views/user/signup.vue'), auth: false
             },
             '/edit/:id': {
               name: 'user_edit', component: require('./views/user/edit.vue')
             },
             '/login': {
-              name: 'user_login', component: require('./views/user/login.vue')
+              name: 'user_login', component: require('./views/user/login.vue'), auth: false
             }
           }
         },
@@ -58,9 +59,17 @@ module.exports = function(router){
     '*': "/index"//默认主页
   });
 
-  // (rs) => {require(['./views/micropost/list.vue'], rs)}//异步加载组件
+  router.beforeEach(function (transition) {
+    if (transition.to.auth) {
+      if (!login_info.jwt)//未登录
+      {
+        utils.flash('请先登录', 'danger')
+        transition.redirect({name:'user_login'})
+      }
+    }
+    // window.scrollTo(0, 0)
+    return true
+  })
 
-  // router.beforeEach(function () {
-  //   window.scrollTo(0, 0)
-  // })
+  // (rs) => {require(['./views/micropost/list.vue'], rs)}//异步加载组件
 }
