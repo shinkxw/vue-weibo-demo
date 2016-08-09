@@ -9,7 +9,7 @@
   export default {
     props: ['m', 'f', 't', 'l', 'e'],//'model', 'field', 'type', 'label', 'errors'
     computed: {
-      field_error: function () {
+      field_error() {
         return this.e ? this.e[this.f] : ''
       }
     }

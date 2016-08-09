@@ -27,7 +27,7 @@
       }
     },
     route:{
-      data: function (transition) {
+      data(transition) {
         let uid = transition.to.params.id
         return {
           user: user_resource.get({id: uid}).then((res) => { return res.json() })

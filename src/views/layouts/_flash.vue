@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    data: function (transition) {
+    data(transition) {
       return {
         message: null,
         type: null

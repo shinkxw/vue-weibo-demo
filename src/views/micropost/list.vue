@@ -37,7 +37,7 @@
       }
     },
     route:{
-      data: function (transition) {
+      data(transition) {
         return {
           microposts: micropost_resource.get().then((res) => { return res.json() })
         }

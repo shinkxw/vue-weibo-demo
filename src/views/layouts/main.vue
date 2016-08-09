@@ -10,7 +10,7 @@
 <script>
   export default {
     route:{
-      data: function (transition) {
+      data(transition) {
         this.$refs.flash.flash()//刷新组件数据
         return {}
       }

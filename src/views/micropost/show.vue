@@ -31,7 +31,7 @@
       }
     },
     route:{
-      data: function (transition) {
+      data(transition) {
         let mid = transition.to.params.id
         return {
           micropost: micropost_resource.get({id: mid}).then((res) => { return res.json() })
