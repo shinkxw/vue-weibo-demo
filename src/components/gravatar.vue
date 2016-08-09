@@ -1,5 +1,5 @@
 <template>
-  <img class="gravatar" :alt="alt" :src="gravatar_url">
+  <img class="gravatar" rel="noopener" :alt="alt" :src="gravatar_url">
 </template>
 
 <script>
