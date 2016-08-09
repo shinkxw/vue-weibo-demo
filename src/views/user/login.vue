@@ -35,7 +35,7 @@
             let jwt = response.text()
             login_info.log_in(jwt, this.need_remember)
             this.flash('登录成功', 'success')
-            this.$route.router.go({name:'user_show', params: { id: login_info.user.id }})
+            this.$route.router.go({name:'user_show', params: { id: this.cuid }})
           }, (response) => {
             switch(response.status)
             {

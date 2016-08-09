@@ -4,7 +4,13 @@ module.exports = function(Vue){
     computed: {
       is_logged: function () {
         return login_info.jwt
-      }
+      },
+      current_user: function () {
+        return login_info.user
+      },
+      cuid: function () {
+        return login_info.user.id
+      },
     },
     methods: {
       flash(message, type = 'info'){
