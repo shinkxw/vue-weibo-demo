@@ -14,8 +14,7 @@ module.exports = function(Vue){
     },
     methods: {
       flash(message, type = 'info'){
-        sessionStorage.setItem('alert_message', message)
-        sessionStorage.setItem('alert_info', type)
+        utils.flash(message, type)
       },
       log_out(){
         login_info.log_out()
