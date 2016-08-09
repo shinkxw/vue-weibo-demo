@@ -16,6 +16,18 @@ module.exports = function(Vue){
       flash(message, type = 'info'){
         utils.flash(message, type)
       },
+      after_login(){
+        let forwarding_url = sessionStorage.getItem('forwarding_url')
+        if (forwarding_url)
+        {
+          sessionStorage.removeItem('forwarding_url')
+          this.$route.router.go({ path: forwarding_url })
+        }
+        else
+        {
+          this.$route.router.go({ name:'user_show', params: { id: this.cuid } })
+        }
+      },
       log_out(){
         login_info.log_out()
         this.flash('已登出')

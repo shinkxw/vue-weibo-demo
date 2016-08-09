@@ -64,6 +64,7 @@ module.exports = function(router){
       if (!login_info.jwt)//未登录
       {
         utils.flash('请先登录', 'danger')
+        sessionStorage.setItem('forwarding_url', transition.to.path)
         transition.redirect({name:'user_login'})
       }
     }
