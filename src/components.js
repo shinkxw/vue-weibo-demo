@@ -4,6 +4,7 @@ module.exports = function(Vue){
 
   //组件
   Vue.component('gravatar', require('./components/gravatar.vue'))
+  Vue.component('paginate', require('./components/paginate.vue'))
   Vue.component('fieldInput', require('./components/field_input.vue'))
 
   //实例
