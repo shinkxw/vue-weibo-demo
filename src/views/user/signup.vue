@@ -29,16 +29,10 @@
           this.flash('创建用户成功', 'success')
           this.after_login()
         }, (response) => {
-          switch(response.status)
+          if (response.status == 422)
           {
-            case 422:
-              this.errors = response.json()
-              this.error_message = '输入有误'
-              break
-            default:
-              alert(response.status)
-              alert(response.statusText)
-              alert(response.text())
+            this.errors = response.json()
+            this.error_message = '输入有误'
           }
         });
       }
