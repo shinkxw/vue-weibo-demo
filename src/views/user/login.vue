@@ -37,15 +37,9 @@
             this.flash('登录成功', 'success')
             this.after_login()
           }, (response) => {
-            switch(response.status)
+            if (response.status == 422)
             {
-              case 422:
-                this.error_message = response.text()
-                break
-              default:
-                alert(response.status)
-                alert(response.statusText)
-                alert(response.text())
+              this.error_message = response.text()
             }
           });
         }
