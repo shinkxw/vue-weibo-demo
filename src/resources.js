@@ -17,6 +17,9 @@ module.exports = function(Vue, router){
     next((response) => {
       switch(response.status)
       {
+        case 0://服务器未响应
+          utils.flash('服务器未响应, 请稍后刷新重试', 'danger')
+          break
         case 200: break
         case 401://未登录
           utils.flash(response.text(), 'danger')
