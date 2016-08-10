@@ -5,9 +5,8 @@
       <nav>
         <ul class="nav navbar-nav navbar-right">
           <li><a v-link="{ name: 'index' }">主页</a></li>
-          <li><a v-link="{ name: 'index' }">帮助</a></li>
           <template v-if="is_logged">
-            <li><a v-link="{ name: 'index' }">用户</a></li>
+            <li><a v-link="{ name: 'user_list' }">用户</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 账户 <b class="caret"></b>

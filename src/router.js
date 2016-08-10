@@ -18,6 +18,9 @@ module.exports = function(router){
           component: require('./views/user/layout.vue'),
           auth: true,
           subRoutes: {
+            '/list': {
+              name: 'user_list', component: require('./views/user/list.vue')
+            },
             '/:id': {
               name: 'user_show', component: require('./views/user/show.vue')
             },
