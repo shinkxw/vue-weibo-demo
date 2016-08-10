@@ -24,8 +24,8 @@ module.exports = function(router){
             '/signup': {
               name: 'user_signup', component: require('./views/user/signup.vue'), auth: false
             },
-            '/edit/:id': {
-              name: 'user_edit', component: require('./views/user/edit.vue')
+            '/edit_self': {
+              name: 'user_edit_self', component: require('./views/user/edit_self.vue')
             },
             '/login': {
               name: 'user_login', component: require('./views/user/login.vue'), auth: false
