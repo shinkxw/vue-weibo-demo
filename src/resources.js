@@ -1,4 +1,4 @@
-module.exports = function(Vue){
+module.exports = function(Vue, router){
   Vue.http.options.root = 'http://localhost:3000/api/v1'
 
   var userActions = {
@@ -14,6 +14,25 @@ module.exports = function(Vue){
       request.headers['Authorization'] = `Token ${jwt}`
     }
     // continue to next interceptor
-    next();
+    next((response) => {
+      switch(response.status)
+      {
+        case 200: break
+        case 401://未登录
+          utils.flash(response.text(), 'danger')
+          sessionStorage.setItem('forwarding_url', router.current_route.path)
+          router.go({name:'user_login'})
+          break
+        case 403://没有权限访问
+          utils.flash(response.text(), 'danger')
+          router.go({name:'index'})
+          break
+        case 422: break
+        default:
+          alert(response.status)
+          alert(response.statusText)
+          alert(response.text())
+      }
+    });
   });
 }

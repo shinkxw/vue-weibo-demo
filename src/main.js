@@ -18,7 +18,7 @@ var router = new Router()
 RouterMap(router)
 
 Vue.use(VueResource)
-Resources(Vue)
+Resources(Vue, router)
 
 Object.keys(Filters).forEach(k => Vue.filter(k, Filters[k]));
 
