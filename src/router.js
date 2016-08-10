@@ -72,5 +72,8 @@ module.exports = function(router){
     return true
   })
 
+  router.afterEach(function (transition) {
+    transition.to.router.current_route = transition.to
+  })
   // (rs) => {require(['./views/micropost/list.vue'], rs)}//异步加载组件
 }
