@@ -4,6 +4,9 @@
     <li v-for="user of users">
       <gravatar :alt="user.name" :email="user.email" size="50"></gravatar>
       <a v-link="{name: 'user_show',params: { id: user.id }}">{{user.name}}</a>
+      <template v-if="is_admin && user.id != cuid">
+        | <a style="cursor: pointer;" @click="deleteUser(user.id, $index)">删除</a>
+      </template>
     </li>
   </ul>
   <paginate :resource="user_resource"></paginate>
@@ -15,6 +18,16 @@
       return {
         users: [],
         user_resource: user_resource
+      }
+    },
+    methods:{
+      deleteUser(id, index){
+        if (confirm('此操作将不可恢复，确定要删除吗？'))
+        {
+          user_resource.delete({id: id}).then((response) => {
+            this.users.splice(index, 1)// success callback
+          })
+        }
       }
     },
     events: {

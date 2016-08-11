@@ -11,6 +11,9 @@ module.exports = function(Vue){
       cuid: function () {
         return login_info.user.id
       },
+      is_admin: function () {
+        return login_info.user.admin
+      },
     },
     methods: {
       flash(message, type = 'info'){

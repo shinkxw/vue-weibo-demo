@@ -21,6 +21,7 @@ module.exports = function(Vue, router){
           alert('服务器未响应, 请稍后刷新重试')
           break
         case 200: break
+        case 204: break
         case 401://未登录
           utils.flash(response.text(), 'danger')
           sessionStorage.setItem('forwarding_url', router.current_route.path)
