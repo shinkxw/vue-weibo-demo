@@ -230,7 +230,7 @@
 
           this.resource.get(this.param).then((response) => {
             let res = response.json()
-            this.pageTotal = res.page_num
+            this.pageTotal = Math.ceil(res.all_count / this.len)
 
             if (this.pages.length !== this.pageLen || this.pageTotal < this.pageLen)
             {
@@ -242,7 +242,7 @@
               this.activeNum = this.pageTotal - 1
             }
 
-            this.$dispatch('data', res.data)
+            this.$dispatch('data', res)
           })
         }
       },

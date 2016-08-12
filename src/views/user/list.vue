@@ -33,8 +33,8 @@
     },
     events: {
       // 分页组件传回的表格数据
-      'data' (data) {
-        this.users = data
+      'data' (res) {
+        this.users = res.data
         window.scrollTo(0, 0)
       }
     }
