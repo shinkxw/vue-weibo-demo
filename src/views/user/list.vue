@@ -26,7 +26,7 @@
         {
           user_resource.delete({id: id}).then((response) => {
             let delete_user = this.users.splice(index, 1)[0]
-            flash_view.now(`用户${delete_user.name}已被删除`)
+            flash_view.now(`用户${delete_user.name}已被删除`, 'success')
           })
         }
       }

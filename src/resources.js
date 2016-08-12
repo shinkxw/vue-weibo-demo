@@ -18,7 +18,7 @@ module.exports = function(Vue, router){
       switch(response.status)
       {
         case 0://服务器未响应
-          alert('服务器未响应, 请稍后刷新重试')
+          flash_view.now('服务器未响应, 请稍后刷新重试', 'danger')
           break
         case 200: break
         case 204: break
