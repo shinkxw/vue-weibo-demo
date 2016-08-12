@@ -11,7 +11,7 @@
   export default {
     route:{
       data(transition) {
-        this.$refs.flash.flash()//刷新组件数据
+        this.$refs.flash.refresh()//刷新组件数据
         return {}
       }
     },

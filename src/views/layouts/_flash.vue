@@ -9,18 +9,39 @@
 
 <script>
   export default {
+    created: function () {
+      window.flash_view = this
+    },
     data(transition) {
       return {
         message: null,
-        type: null
+        type: null,
+        times: 0
       }
     },
     methods: {
-      flash(){
-        this.message = sessionStorage.getItem('alert_message')
-        this.type = sessionStorage.getItem('alert_info')
-        sessionStorage.removeItem('alert_message')
-        sessionStorage.removeItem('alert_info')
+      now(message, type = 'info'){
+        this.set_message(message, type)
+        this.times = 0
+      },
+      next(message, type = 'info'){
+        this.set_message(message, type)
+        this.times = 1
+      },
+      set_message(message, type){
+        this.message = message
+        this.type = type
+      },
+      refresh(){
+        if (this.times == 0)
+        {
+          this.message = null
+          this.type = null
+        }
+        else
+        {
+          this.times -= 1
+        }
       }
     }
   }

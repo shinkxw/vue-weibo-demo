@@ -34,7 +34,7 @@
           user_resource.login(this.user).then((response) => {
             let jwt = response.text()
             login_info.log_in(jwt, this.need_remember)
-            this.flash('登录成功', 'success')
+            flash_view.next('登录成功', 'success')
             this.after_login()
           }, (response) => {
             if (response.status == 422)

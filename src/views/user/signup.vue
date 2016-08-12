@@ -26,7 +26,7 @@
         user_resource.save(this.user).then((response) => {
           let jwt = response.text()
           login_info.log_in(jwt)
-          this.flash('创建用户成功', 'success')
+          flash_view.next('创建用户成功', 'success')
           this.after_login()
         }, (response) => {
           if (response.status == 422)

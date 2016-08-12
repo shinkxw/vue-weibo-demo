@@ -25,7 +25,8 @@
         if (confirm('此操作将不可恢复，确定要删除吗？'))
         {
           user_resource.delete({id: id}).then((response) => {
-            this.users.splice(index, 1)// success callback
+            let delete_user = this.users.splice(index, 1)[0]
+            flash_view.now(`用户${delete_user.name}已被删除`)
           })
         }
       }

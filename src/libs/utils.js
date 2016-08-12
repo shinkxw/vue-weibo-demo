@@ -121,14 +121,8 @@ function base64urlUnescape(str) {
   return str.replace(/\-/g, '+').replace(/_/g, '/');
 }
 
-function flash(message, type = 'info') {
-  sessionStorage.setItem('alert_message', message)
-  sessionStorage.setItem('alert_info', type)
-}
-
 exports.getCheck = getCheck;
 exports.fmtDate = fmtDate;
 exports.MillisecondToDate = MillisecondToDate;
 exports.md5 = md5;
 exports.JwtDecode = JwtDecode;
-exports.flash = flash;

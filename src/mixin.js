@@ -12,13 +12,10 @@ module.exports = function(Vue){
         return login_info.user.id
       },
       is_admin: function () {
-        return login_info.user.admin
+        return login_info.user ? login_info.user.admin :false
       },
     },
     methods: {
-      flash(message, type = 'info'){
-        utils.flash(message, type)
-      },
       after_login(){
         let forwarding_url = sessionStorage.getItem('forwarding_url')
         if (forwarding_url)
@@ -33,7 +30,7 @@ module.exports = function(Vue){
       },
       log_out(){
         login_info.log_out()
-        this.flash('已登出')
+        flash_view.next('已登出')
         this.$route.router.go({name:'index'})
       }
     }
