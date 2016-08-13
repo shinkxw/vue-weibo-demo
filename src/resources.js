@@ -29,7 +29,7 @@ module.exports = function(Vue, router){
           break
         case 403://没有权限访问
           utils.flash(response.text(), 'danger')
-          router.go({name:'index'})
+          router.go({name:'home'})
           break
         case 422: break
         default:

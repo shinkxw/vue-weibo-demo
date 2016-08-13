@@ -31,7 +31,7 @@ module.exports = function(Vue){
       log_out(){
         login_info.log_out()
         flash_view.next('已登出')
-        this.$route.router.go({name:'index'})
+        this.$route.router.go({name:'home'})
       }
     }
   }
