@@ -9,7 +9,7 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <template v-if="get_user && (micropost_all_count > 0)">
+      <template v-if="paginate_param && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
           <li v-for="micropost of microposts" id="micropost-{{ micropost.id }}">
@@ -36,20 +36,19 @@
     data() {
       return {
         user: {},
-        get_user: false,
         microposts: [],
         micropost_all_count: 1,
-        paginate_param: {},
+        paginate_param: null,
         micropost_resource: micropost_resource
       }
     },
     route:{
       data(transition) {
         let uid = transition.to.params.id
+        this.paginate_param = { user_id: uid}
         return {
           user: user_resource.get({id: uid}).then((res) => { return res.json() }),
-          paginate_param: {user_id: uid},
-          get_user: true
+          paginate_param: {user_id: uid}
         }
       }
     },
