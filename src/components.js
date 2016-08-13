@@ -1,6 +1,7 @@
 module.exports = function(Vue){
   //复用页面
   Vue.component('errorMessageView', require('./views/shared/error_message.vue'))
+  Vue.component('micropostView', require('./views/shared/_micropost.vue'))
 
   //组件
   Vue.component('gravatar', require('./components/gravatar.vue'))

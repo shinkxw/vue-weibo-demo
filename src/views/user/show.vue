@@ -12,18 +12,7 @@
       <template v-if="paginate_param && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
-          <li v-for="micropost of microposts" id="micropost-{{ micropost.id }}">
-            <gravatar :alt="user.name" :email="user.email" size="50"></gravatar>
-            <span class="user">
-              <a v-link="{ name: 'user_show', params: { id: micropost.user_id } }">
-                {{ user.name }}
-              </a>
-            </span>
-            <span class="content">{{ micropost.content }}</span>
-            <span class="timestamp">
-              {{ micropost.created_at | getLastTimeStr true }} 发布
-            </span>
-          </li>
+          <micropost-view v-for="m of microposts" :micropost="m" ></micropost-view>
         </ol>
         <paginate :resource="micropost_resource" :param="paginate_param"></paginate>
       </template>
@@ -45,10 +34,9 @@
     route:{
       data(transition) {
         let uid = transition.to.params.id
-        this.paginate_param = { user_id: uid}
+        this.paginate_param = { user_id: uid }
         return {
-          user: user_resource.get({id: uid}).then((res) => { return res.json() }),
-          paginate_param: {user_id: uid}
+          user: user_resource.get({id: uid}).then((res) => { return res.json() })
         }
       }
     },
