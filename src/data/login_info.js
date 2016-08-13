@@ -22,7 +22,7 @@ module.exports = function(Vue){
       }
     },
     methods: {
-      log_in: function (jwt, need_remember) {
+      log_in: function (jwt, need_remember = false) {
         this.set_data(jwt)
         if (need_remember)
         {

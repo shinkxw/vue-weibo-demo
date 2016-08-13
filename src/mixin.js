@@ -25,7 +25,7 @@ module.exports = function(Vue){
         }
         else
         {
-          this.$route.router.go({ name:'user_show', params: { id: this.cuid } })
+          this.$route.router.go({ name:'home' })
         }
       },
       log_out(){

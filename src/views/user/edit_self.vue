@@ -37,6 +37,8 @@
     methods: {
       editUser(){
         user_resource.update({id: this.user.id}, this.user).then((response) => {
+          let jwt = response.text()
+          login_info.set_data(jwt)
           flash_view.next('个人资料已更新', 'success')
           this.$route.router.go({name:'user_show', params: { id: this.user.id }})
         }, (response) => {

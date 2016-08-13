@@ -5,7 +5,11 @@ module.exports = function(Vue, router){
     login: {method: 'POST', url: 'users/login'}
   }
   window.user_resource = Vue.resource('users{/id}', {}, userActions)
-  window.micropost_resource = Vue.resource('microposts{/id}')
+
+  var micropostActions = {
+    count: {method: 'GET', url: 'microposts/count'}
+  }
+  window.micropost_resource = Vue.resource('microposts{/id}', {}, micropostActions)
 
 
   Vue.http.interceptors.push((request, next) => {
@@ -21,6 +25,7 @@ module.exports = function(Vue, router){
           flash_view.now('服务器未响应, 请稍后刷新重试', 'danger')
           break
         case 200: break
+        case 201: break//添加成功
         case 204: break
         case 401://未登录
           utils.flash(response.text(), 'danger')
