@@ -20,7 +20,8 @@
         <h3>微博动态</h3>
         <template v-if="paginate_param && (microposts_count > 0)">
           <ol class="microposts">
-            <micropost-view v-for="m of microposts" :micropost="m" ></micropost-view>
+            <micropost-view v-for="m of microposts" :micropost="m" :index="$index">
+            </micropost-view>
           </ol>
           <paginate v-ref:paginate :resource="micropost_resource" :param="paginate_param"></paginate>
         </template>
@@ -86,6 +87,9 @@
       'data' (res) {
         this.microposts = res.data
         window.scrollTo(0, 0)
+      },
+      'delete_micropost' (index) {
+        this.microposts.splice(index, 1)
       }
     }
   }
