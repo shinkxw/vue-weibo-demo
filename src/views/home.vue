@@ -16,6 +16,15 @@
           <input class="btn btn-primary" type="button" @click="postMicropost" value="提交" />
         </section>
       </aside>
+      <div class="col-md-8">
+        <h3>微博动态</h3>
+        <template v-if="paginate_param && (microposts_count > 0)">
+          <ol class="microposts">
+            <micropost-view v-for="m of microposts" :micropost="m" ></micropost-view>
+          </ol>
+          <paginate v-ref:paginate :resource="micropost_resource" :param="paginate_param"></paginate>
+        </template>
+      </div>
     </div>
   </template>
   <template v-else>
@@ -35,12 +44,19 @@
       return {
         micropost: {content: ''},
         error_message: '',
-        microposts_count: 0
+        microposts_count: 0,
+
+        microposts: [],
+        paginate_param: null,
+        micropost_resource: micropost_resource
       }
     },
     route:{
       data(transition) {
-        if (this.is_logged) { this.refresh_microposts_count() }
+        if (this.is_logged) {
+          this.refresh_microposts_count()
+          this.paginate_param = { user_id: this.cuid }
+        }
       }
     },
     methods: {
@@ -48,6 +64,7 @@
         micropost_resource.save(this.micropost).then((response) => {
           this.error_message = ''
           this.refresh_microposts_count()
+          this.refresh_microposts()
           flash_view.next('微博发布成功', 'success')
         }, (response) => {
           if (response.status == 422)
@@ -57,9 +74,18 @@
         });
       },
       refresh_microposts_count(){
-        let uid = this.cuid
-        micropost_resource.count({user_id: uid})
+        micropost_resource.count({user_id: this.cuid})
         .then((res) => { this.microposts_count = res.json() })
+      },
+      refresh_microposts () {
+        this.$refs.paginate.refresh()
+      }
+    },
+    events: {
+      // 分页组件传回的表格数据
+      'data' (res) {
+        this.microposts = res.data
+        window.scrollTo(0, 0)
       }
     }
   }
