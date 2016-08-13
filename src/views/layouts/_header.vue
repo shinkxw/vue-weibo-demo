@@ -1,10 +1,10 @@
 <template>
   <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
-      <a id="logo" v-link="{ name: 'index' }">Vue Weibo Demo</a>
+      <a id="logo" v-link="{ name: 'home' }">Vue Weibo Demo</a>
       <nav>
         <ul class="nav navbar-nav navbar-right">
-          <li><a v-link="{ name: 'index' }">主页</a></li>
+          <li><a v-link="{ name: 'home' }">主页</a></li>
           <template v-if="is_logged">
             <li><a v-link="{ name: 'user_list' }">用户</a></li>
             <li class="dropdown">

@@ -7,12 +7,8 @@ module.exports = function(router){
     '/': {
       component: require('./views/layouts/main.vue'),
       subRoutes: {
-        '/index': {
-          name: 'index', component: require('./views/index.vue')
-        },
-        '/contact': {
-          name: 'contact', component: require('./views/contact.vue')
-        },
+        '/home': { name: 'home', component: require('./views/home.vue') },
+        '/about': { name: 'about', component: require('./views/about.vue') },
         '/user': {
           name: 'user',
           component: require('./views/user/layout.vue'),
@@ -58,8 +54,8 @@ module.exports = function(router){
   })
 
   router.redirect({
-    '/': "/index",//默认主页
-    '*': "/index"//默认主页
+    '/': "/home",//默认主页
+    '*': "/home"//默认主页
   });
 
   router.beforeEach(function (transition) {

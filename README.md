@@ -1,6 +1,6 @@
 # vue-weibo-demo
 
-参考《rails tutorial》, 采用vue, vue-router, vue-resource, Bootstrap和webpack搭建的单页类微博演示应用
+参考《rails tutorial》, 采用vue, vue-router, vue-resource, Bootstrap和webpack搭建的类微博单页演示应用
 
 ## Build Setup
 
