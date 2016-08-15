@@ -3,7 +3,9 @@ module.exports = function(Vue, router){
 
   var userActions = {
     login: {method: 'POST', url: 'users/login'},
-    microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'}
+    microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'},
+    following_count: {method: 'GET', url: 'users{/id}/following_count'},
+    followers_count: {method: 'GET', url: 'users{/id}/followers_count'},
   }
   window.user_resource = Vue.resource('users{/id}', {}, userActions)
 

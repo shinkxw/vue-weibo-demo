@@ -8,6 +8,9 @@
           <span><a v-link="{ name: 'user_show', params: { id: cuid } }">查看个人信息</a></span>
           <span>{{ microposts_count }} 条微博</span>
         </section>
+        <section class="stats">
+          <userstats-view :id="cuid"></userstats-view>
+        </section>
         <section class="micropost_form">
           <error-message-view :message="error_message"></error-message-view>
           <div class="field">

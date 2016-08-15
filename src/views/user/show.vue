@@ -7,6 +7,9 @@
           {{ user.name }}
         </h1>
       </section>
+      <section class="stats">
+        <userstats-view v-if="user.id" :id="user.id"></userstats-view>
+      </section>
     </aside>
     <div class="col-md-8">
       <template v-if="paginate_param && (micropost_all_count > 0)">
