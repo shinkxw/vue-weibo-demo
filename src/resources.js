@@ -2,14 +2,12 @@ module.exports = function(Vue, router){
   Vue.http.options.root = 'http://localhost:3000/api/v1'
 
   var userActions = {
-    login: {method: 'POST', url: 'users/login'}
+    login: {method: 'POST', url: 'users/login'},
+    microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'}
   }
   window.user_resource = Vue.resource('users{/id}', {}, userActions)
 
-  var micropostActions = {
-    count: {method: 'GET', url: 'microposts/count'}
-  }
-  window.micropost_resource = Vue.resource('microposts{/id}', {}, micropostActions)
+  window.micropost_resource = Vue.resource('microposts{/id}')
 
 
   Vue.http.interceptors.push((request, next) => {

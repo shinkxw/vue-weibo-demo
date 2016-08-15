@@ -75,7 +75,7 @@
         });
       },
       refresh_microposts_count(){
-        micropost_resource.count({user_id: this.cuid})
+        user_resource.microposts_count({id: this.cuid})
         .then((res) => { this.microposts_count = res.json() })
       },
       refresh_microposts () {
