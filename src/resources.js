@@ -6,11 +6,13 @@ module.exports = function(Vue, router){
     microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'},
     following_count: {method: 'GET', url: 'users{/id}/following_count'},
     followers_count: {method: 'GET', url: 'users{/id}/followers_count'},
+    relationship_id: {method: 'GET', url: 'users{/id}/relationship_id'},
   }
   window.user_resource = Vue.resource('users{/id}', {}, userActions)
 
   window.micropost_resource = Vue.resource('microposts{/id}')
 
+  window.relationship_resource = Vue.resource('relationships{/id}')
 
   Vue.http.interceptors.push((request, next) => {
     let jwt = login_info.jwt

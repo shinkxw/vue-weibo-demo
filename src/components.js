@@ -3,6 +3,7 @@ module.exports = function(Vue){
   Vue.component('errorMessageView', require('./views/shared/error_message.vue'))
   Vue.component('micropostView', require('./views/shared/_micropost.vue'))
   Vue.component('userstatsView', require('./views/shared/_userstats.vue'))
+  Vue.component('followView', require('./views/shared/_follow.vue'))
 
   //组件
   Vue.component('gravatar', require('./components/gravatar.vue'))

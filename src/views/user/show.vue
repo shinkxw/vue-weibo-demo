@@ -12,6 +12,7 @@
       </section>
     </aside>
     <div class="col-md-8">
+      <follow-view v-if="is_logged && uid" :uid="uid"></follow-view>
       <template v-if="paginate_param && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
