@@ -31,24 +31,6 @@ module.exports = function(router){
             }
           }
         },
-        '/micropost': {
-          name: 'micropost',
-          component: require('./views/micropost/layout.vue'),
-          subRoutes: {
-            '/list': {
-              name: 'micropost_list', component: require('./views/micropost/list.vue')
-            },
-            '/:id': {
-              name: 'micropost_show', component: require('./views/micropost/show.vue')
-            },
-            '/new': {
-              name: 'micropost_new',  component: require('./views/micropost/new.vue')
-            },
-            '/edit/:id': {
-              name: 'micropost_edit', component: require('./views/micropost/edit.vue')
-            }
-          }
-        }
       }
     }
   })
