@@ -26,7 +26,7 @@
             <micropost-view v-for="m of microposts" :micropost="m" :index="$index">
             </micropost-view>
           </ol>
-          <paginate v-ref:paginate :resource="user_resource" method="microposts" :param="paginate_param"></paginate>
+          <paginate v-ref:paginate :resource="user_resource" method="feed" :param="paginate_param"></paginate>
         </template>
       </div>
     </div>

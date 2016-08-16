@@ -3,6 +3,7 @@ module.exports = function(Vue, router){
 
   var userActions = {
     login: {method: 'POST', url: 'users/login'},
+    feed: {method: 'GET', url: 'users{/id}/feed'},
     microposts: {method: 'GET', url: 'users{/id}/microposts'},
     microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'},
     following: {method: 'GET', url: 'users{/id}/following'},
