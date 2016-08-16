@@ -28,6 +28,12 @@ module.exports = function(router){
             },
             '/login': {
               name: 'user_login', component: require('./views/user/login.vue'), auth: false
+            },
+            '/:id/following': {
+              name: 'user_following', component: require('./views/user/show_follow.vue')
+            },
+            '/:id/followers': {
+              name: 'user_followers', component: require('./views/user/show_follow.vue')
             }
           }
         },

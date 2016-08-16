@@ -5,6 +5,8 @@ module.exports = function(Vue, router){
     login: {method: 'POST', url: 'users/login'},
     microposts: {method: 'GET', url: 'users{/id}/microposts'},
     microposts_count: {method: 'GET', url: 'users{/id}/microposts_count'},
+    following: {method: 'GET', url: 'users{/id}/following'},
+    followers: {method: 'GET', url: 'users{/id}/followers'},
     following_count: {method: 'GET', url: 'users{/id}/following_count'},
     followers_count: {method: 'GET', url: 'users{/id}/followers_count'},
     relationship_id: {method: 'GET', url: 'users{/id}/relationship_id'},
