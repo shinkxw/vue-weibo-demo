@@ -93,6 +93,7 @@
       },
       'delete_micropost' (index) {
         this.microposts.splice(index, 1)
+        this.refresh_microposts_count()
       }
     }
   }
