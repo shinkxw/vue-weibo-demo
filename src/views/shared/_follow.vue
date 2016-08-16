@@ -24,13 +24,17 @@
       },
       followUser(){
         relationship_resource.save({followed_id: this.uid}).then((response) => {
-          this.refresh()
+          this.after_change()
         })
       },
       unfollowUser(){
         relationship_resource.delete({id: this.relationship_id}).then((response) => {
-          this.refresh()
+          this.after_change()
         })
+      },
+      after_change(){
+        this.refresh()
+        this.$dispatch('follow_changed')
       }
     },
   }

@@ -8,7 +8,7 @@
         </h1>
       </section>
       <section class="stats">
-        <userstats-view v-if="uid" :id="uid"></userstats-view>
+        <userstats-view v-ref:userstats v-if="uid" :id="uid"></userstats-view>
       </section>
     </aside>
     <div class="col-md-8">
@@ -55,6 +55,9 @@
       },
       'delete_micropost' (index) {
         this.microposts.splice(index, 1)
+      },
+      'follow_changed' () {
+        this.$refs.userstats.refresh()
       }
     }
   }
