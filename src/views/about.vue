@@ -9,5 +9,7 @@
     关于源码:
     <br/>
     <a href="https://github.com/shinkxw/vue-weibo-demo/">前端源码</a>
+    <br/>
+    <a href="https://github.com/shinkxw/rails-api-demo/">后端API源码</a>
   </p>
 </template>
