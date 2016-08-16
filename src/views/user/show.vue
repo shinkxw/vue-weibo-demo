@@ -55,6 +55,7 @@
       },
       'delete_micropost' (index) {
         this.microposts.splice(index, 1)
+        this.micropost_all_count -= 1
       },
       'follow_changed' () {
         this.$refs.userstats.refresh()
