@@ -69,6 +69,12 @@
         default: null
       },
 
+      // resource对象调用的方法
+      method: {
+        type: String,
+        default: 'get'
+      },
+
       // 显示页数
       pageLen: {
         type: Number,
@@ -228,7 +234,7 @@
           this.param.page = this.pages[this.activeNum]
           this.param.page_size = this.len
 
-          this.resource.get(this.param).then((response) => {
+          this.resource[this.method](this.param).then((response) => {
             let res = response.json()
             this.pageTotal = Math.ceil(res.all_count / this.len)
 

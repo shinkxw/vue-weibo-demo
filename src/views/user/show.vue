@@ -19,7 +19,7 @@
           <micropost-view v-for="m of microposts" :micropost="m" :index="$index">
           </micropost-view>
         </ol>
-        <paginate :resource="micropost_resource" :param="paginate_param"></paginate>
+        <paginate :resource="user_resource" method="microposts" :param="paginate_param"></paginate>
       </template>
     </div>
   </div>
@@ -34,13 +34,13 @@
         microposts: [],
         micropost_all_count: 1,
         paginate_param: null,
-        micropost_resource: micropost_resource
+        user_resource: user_resource
       }
     },
     route:{
       data(transition) {
         this.uid = transition.to.params.id
-        this.paginate_param = { user_id: this.uid }
+        this.paginate_param = { id: this.uid }
         return {
           user: user_resource.get({id: this.uid}).then((res) => { return res.json() })
         }

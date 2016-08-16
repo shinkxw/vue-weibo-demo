@@ -26,7 +26,7 @@
             <micropost-view v-for="m of microposts" :micropost="m" :index="$index">
             </micropost-view>
           </ol>
-          <paginate v-ref:paginate :resource="micropost_resource" :param="paginate_param"></paginate>
+          <paginate v-ref:paginate :resource="user_resource" method="microposts" :param="paginate_param"></paginate>
         </template>
       </div>
     </div>
@@ -52,14 +52,14 @@
 
         microposts: [],
         paginate_param: null,
-        micropost_resource: micropost_resource
+        user_resource: user_resource
       }
     },
     route:{
       data(transition) {
         if (this.is_logged) {
           this.refresh_microposts_count()
-          this.paginate_param = { user_id: this.cuid }
+          this.paginate_param = { id: this.cuid }
         }
       }
     },
