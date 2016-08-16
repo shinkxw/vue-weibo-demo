@@ -18,7 +18,7 @@ module.exports = function(router){
               name: 'user_list', component: require('./views/user/list.vue')
             },
             '/:id': {
-              name: 'user_show', component: require('./views/user/show.vue')
+              name: 'user_show', component: require('./views/user/show.vue'), auth: false
             },
             '/signup': {
               name: 'user_signup', component: require('./views/user/signup.vue'), auth: false
@@ -62,7 +62,7 @@ module.exports = function(router){
     if (transition.to.auth) {
       if (!login_info.jwt)//未登录
       {
-        utils.flash('请先登录', 'danger')
+        flash_view.next('请先登录', 'danger')
         sessionStorage.setItem('forwarding_url', transition.to.path)
         transition.redirect({name:'user_login'})
       }

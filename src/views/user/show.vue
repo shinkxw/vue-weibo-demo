@@ -8,7 +8,7 @@
         </h1>
       </section>
       <section class="stats">
-        <userstats-view v-if="user.id" :id="user.id"></userstats-view>
+        <userstats-view v-if="uid" :id="uid"></userstats-view>
       </section>
     </aside>
     <div class="col-md-8">
@@ -28,6 +28,7 @@
   export default {
     data() {
       return {
+        uid: null,
         user: {},
         microposts: [],
         micropost_all_count: 1,
@@ -37,10 +38,10 @@
     },
     route:{
       data(transition) {
-        let uid = transition.to.params.id
-        this.paginate_param = { user_id: uid }
+        this.uid = transition.to.params.id
+        this.paginate_param = { user_id: this.uid }
         return {
-          user: user_resource.get({id: uid}).then((res) => { return res.json() })
+          user: user_resource.get({id: this.uid}).then((res) => { return res.json() })
         }
       }
     },

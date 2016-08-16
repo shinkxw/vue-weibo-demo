@@ -9,10 +9,10 @@ module.exports = function(Vue){
         return login_info.user
       },
       cuid: function () {
-        return login_info.user.id
+        return login_info.user ? login_info.user.id : null
       },
       is_admin: function () {
-        return login_info.user ? login_info.user.admin :false
+        return login_info.user ? login_info.user.admin : false
       },
     },
     methods: {
