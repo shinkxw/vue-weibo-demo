@@ -35,12 +35,12 @@ module.exports = function(Vue, router){
         case 204: break
         case 401://未登录
           utils.flash(response.text(), 'danger')
-          sessionStorage.setItem('forwarding_url', router.current_route.path)
-          router.go({name:'user_login'})
+          sessionStorage.setItem('forwarding_url', router.currentRoute.path)
+          router.push({name:'user_login'})
           break
         case 403://没有权限访问
           utils.flash(response.text(), 'danger')
-          router.go({name:'home'})
+          router.push({name:'home'})
           break
         case 422: break
         default:

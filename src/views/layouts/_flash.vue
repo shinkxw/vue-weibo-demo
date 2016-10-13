@@ -1,5 +1,5 @@
 <template>
-  <div v-if="message" class="alert alert-{{ type }} alert-dismissible">
+  <div v-if="message" :class="classObject">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -12,11 +12,16 @@
     created: function () {
       window.flash_view = this
     },
-    data(transition) {
+    data() {
       return {
         message: null,
         type: null,
         times: 0
+      }
+    },
+    computed: {
+      classObject: function () {
+        return ["alert", "alert-" + this.type, "alert-dismissible"]
       }
     },
     methods: {

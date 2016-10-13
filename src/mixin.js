@@ -21,17 +21,17 @@ module.exports = function(Vue){
         if (forwarding_url)
         {
           sessionStorage.removeItem('forwarding_url')
-          this.$route.router.go({ path: forwarding_url })
+          router.push({ path: forwarding_url })
         }
         else
         {
-          this.$route.router.go({ name:'home' })
+          router.push({ name:'home' })
         }
       },
       log_out(){
         login_info.log_out()
         flash_view.next('已登出')
-        this.$route.router.go({name:'home'})
+        router.push({name:'home'})
       }
     }
   }

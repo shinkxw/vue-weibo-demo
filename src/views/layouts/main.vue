@@ -1,19 +1,23 @@
 <template>
-  <header-view></header-view>
-  <div class="container">
-    <flash-view v-ref:flash></flash-view>
-    <router-view></router-view>
-    <footer-view></footer-view>
+  <div>
+    <header-view></header-view>
+    <div class="container">
+      <flash-view ref="flash"></flash-view>
+      <router-view></router-view>
+      <footer-view></footer-view>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    route:{
-      data(transition) {
+    watch: {
+      '$route': 'flash_refresh'
+    },
+    methods: {
+      flash_refresh() {
         this.$refs.flash.refresh()//刷新组件数据
-        return {}
-      }
+      },
     },
     components:{
       "headerView": require('./_header.vue'),

@@ -1,19 +1,21 @@
 <template>
-  <h1>用户登录</h1>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <error-message-view :message="error_message"></error-message-view>
-      <field-input :m="user" f="email" t="text" l="邮箱地址"></field-input>
-      <div class="form-group">
-        <label> 密码 </label>
-        <input class="form-control" type="password" @keyup.enter="userLogin" v-model="user.password"/>
+  <div>
+    <h1>用户登录</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <error-message-view :message="error_message"></error-message-view>
+        <field-input :m="user" f="email" t="text" l="邮箱地址"></field-input>
+        <div class="form-group">
+          <label> 密码 </label>
+          <input class="form-control" type="password" @keyup.enter="userLogin" v-model="user.password"  />
+        </div>
+        <label class="checkbox inline">
+          <input id="remember_me" type="checkbox" v-model="need_remember">
+          <span>记住登录状态</span>
+        </label>
+        <input class="btn btn-primary" type="button" @click="userLogin" value="登录" />
+        <p>新用户? <router-link :to="{ name: 'user_signup' }">现在注册!</router-link></p>
       </div>
-      <label class="checkbox inline">
-        <input id="remember_me" type="checkbox" v-model="need_remember">
-        <span>记住登录状态</span>
-      </label>
-      <input class="btn btn-primary" type="button" @click="userLogin" value="登录" />
-      <p>新用户? <a v-link="{ name: 'user_signup' }">现在注册!</a></p>
     </div>
   </div>
 </template>

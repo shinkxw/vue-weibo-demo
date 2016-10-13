@@ -8,7 +8,7 @@
         </h1>
       </section>
       <section class="stats">
-        <userstats-view v-ref:userstats v-if="uid" :id="uid"></userstats-view>
+        <userstats-view ref="userstats" v-if="uid" :id="uid"></userstats-view>
       </section>
     </aside>
     <div class="col-md-8">
@@ -16,7 +16,7 @@
       <template v-if="paginate_param && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
-          <micropost-view v-for="m of microposts" :micropost="m" :index="$index">
+          <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index">
           </micropost-view>
         </ol>
         <paginate :resource="user_resource" method="microposts" :param="paginate_param"></paginate>
@@ -37,29 +37,38 @@
         user_resource: user_resource
       }
     },
-    route:{
-      data(transition) {
-        this.uid = transition.to.params.id
-        this.paginate_param = { id: this.uid }
-        return {
-          user: user_resource.get({id: this.uid}).then((res) => { return res.json() })
-        }
-      }
+    watch: {
+      '$route': 'fetchData'
     },
-    events: {
-      // 分页组件传回的表格数据
-      'data' (res) {
+    methods: {
+      fetchData() {
+        this.uid = this.$route.params.id
+        this.paginate_param = { id: this.uid }
+        this.user = user_resource.get({id: this.uid}).then((res) => { return res.json() })
+      },
+      paginateData(res) {
         this.microposts = res.data
         this.micropost_all_count = res.all_count
         window.scrollTo(0, 0)
       },
-      'delete_micropost' (index) {
+      deleteMicropost(index) {
         this.microposts.splice(index, 1)
         this.micropost_all_count -= 1
       },
-      'follow_changed' () {
+      followChanged() {
         this.$refs.userstats.refresh()
       }
+    },
+    created: function () {
+      this.fetchData()
+      eventHub.$on('paginate_data', this.paginateData)
+      eventHub.$on('delete_micropost', this.deleteMicropost)
+      eventHub.$on('follow_changed', this.followChanged)
+    },
+    beforeDestroy: function () {
+      eventHub.$off('paginate_data', this.paginateData)
+      eventHub.$off('delete_micropost', this.deleteMicropost)
+      eventHub.$off('follow_changed', this.followChanged)
     }
   }
 </script>

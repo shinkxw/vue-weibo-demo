@@ -34,7 +34,7 @@
       },
       after_change(){
         this.refresh()
-        this.$dispatch('follow_changed')
+        eventHub.$emit('follow_changed')
       }
     },
   }

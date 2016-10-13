@@ -1,13 +1,15 @@
 <template>
-  <h1>注册用户</h1>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <error-message-view :message="error_message"></error-message-view>
-      <field-input :m="user" f="name" t="text" l="用户名" :e="errors"></field-input>
-      <field-input :m="user" f="email" t="email" l="邮箱地址" :e="errors"></field-input>
-      <field-input :m="user" f="password" t="password" l="密码" :e="errors"></field-input>
-      <field-input :m="user" f="password_confirmation" t="password" l="确认密码" :e="errors"></field-input>
-      <input class="btn btn-primary" type="button" @click="userSignup" value="创建我的用户" />
+  <div>
+    <h1>注册用户</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <error-message-view :message="error_message"></error-message-view>
+        <field-input :m="user" f="name" t="text" l="用户名" :e="errors"></field-input>
+        <field-input :m="user" f="email" t="email" l="邮箱地址" :e="errors"></field-input>
+        <field-input :m="user" f="password" t="password" l="密码" :e="errors"></field-input>
+        <field-input :m="user" f="password_confirmation" t="password" l="确认密码" :e="errors"></field- input>
+        <input class="btn btn-primary" type="button" @click="userSignup" value="创建我的用户" />
+      </div>
     </div>
   </div>
 </template>

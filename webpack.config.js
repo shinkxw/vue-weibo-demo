@@ -60,7 +60,12 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  resolve: {
+    alias: {
+      vue: 'vue/dist/vue.js'
+    }
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {

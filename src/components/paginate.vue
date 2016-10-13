@@ -11,8 +11,8 @@
           <span aria-hidden="true">‹</span>
         </a>
       </li>
-      <li v-for="page in pages" :class="activeNum === $index ? 'active' : ''">
-        <a href="javascript:void(0)" v-text="page" @click="onPageClick($index)"></a>
+      <li v-for="(page, index) in pages" :class="activeNum === index ? 'active' : ''">
+        <a href="javascript:void(0)" v-text="page" @click="onPageClick(index)"></a>
       </li>
       <li>
         <a href="javascript:void(0)" aria-label="Next" @click="onNextClick()">
@@ -34,14 +34,6 @@
 <script>
   export default {
     props: {
-
-      // 页码
-      pages: {
-        type: Array,
-        default: function () {
-          return [1]
-        }
-      },
 
       // 是否请求服务器端数据
       async: {
@@ -81,12 +73,6 @@
         default: 5
       },
 
-      // 总页数
-      pageTotal: {
-        type: Number,
-        default: 1
-      },
-
       // 参数内容
       param: {
         type: Object,
@@ -97,6 +83,8 @@
     },
     data () {
       return {
+        pageTotal: 1,
+        pages: [1],
         activeNum: 0
       }
     },
@@ -227,7 +215,7 @@
             this.data[i] !== undefined ? newData.push(this.data[i]) : ''
           }
 
-          this.$dispatch('data', newData)
+          eventHub.$emit('paginate_data', newData)
         }
         else
         {
@@ -248,7 +236,7 @@
               this.activeNum = this.pageTotal - 1
             }
 
-            this.$dispatch('data', res)
+            eventHub.$emit('paginate_data', res)
           })
         }
       },
@@ -264,7 +252,7 @@
         this.activeNum === 0 ? this.getData() : this.activeNum = 0
       }
     },
-    ready () {
+    mounted () {
       if (!this.async) {
         this.getPages()
       }
@@ -289,11 +277,6 @@
       // 监测当前页变化
       'activeNum' (newVal, oldVal) {
         this.getData()
-      }
-    },
-    events: {
-      'refresh::page' () {
-        this.refresh()
       }
     }
   }

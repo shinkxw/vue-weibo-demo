@@ -1,13 +1,13 @@
 <template>
   <div class="stats">
-    <a v-link="{ name: 'user_following', params: { id: id } }">
+    <router-link :to="{ name: 'user_following', params: { id: id } }">
       <strong id="following" class="stat">{{ following_count }}</strong>
       关注
-    </a>
-    <a v-link="{ name: 'user_followers', params: { id: id } }">
+    </router-link>
+    <router-link :to="{ name: 'user_followers', params: { id: id } }">
       <strong id="followers" class="stat">{{ followers_count }}</strong>
       粉丝
-    </a>
+    </router-link>
   </div>
 </template>
 

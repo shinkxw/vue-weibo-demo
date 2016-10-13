@@ -6,7 +6,9 @@
     </small>
     <nav>
       <ul>
-        <li><a v-link="{ name: 'about' }">关于本站</a></li>
+        <li>
+          <router-link :to="{ name: 'about' }"> 关于本站</router-link>
+        </li>
       </ul>
     </nav>
   </footer>
