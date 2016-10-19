@@ -79,6 +79,7 @@
           this.refresh_microposts_count()
           this.refresh_microposts()
           flash_view.next('微博发布成功', 'success')
+          this.micropost = {content: ''}
         }, (response) => {
           if (response.status == 422)
           {
@@ -91,7 +92,7 @@
         .then((res) => { this.microposts_count = res.json() })
       },
       refresh_microposts () {
-        $refs.paginate.refresh()
+        this.$refs.paginate.refresh()
       },
       paginateData(res) {
         this.microposts = res.data
