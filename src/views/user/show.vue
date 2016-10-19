@@ -44,7 +44,7 @@
       fetchData() {
         this.uid = this.$route.params.id
         this.paginate_param = { id: this.uid }
-        this.user = user_resource.get({id: this.uid}).then((res) => { return res.json() })
+        user_resource.get({id: this.uid}).then((res) => { this.user = res.json() })
       },
       paginateData(res) {
         this.microposts = res.data

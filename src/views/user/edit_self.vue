@@ -37,7 +37,7 @@
     methods: {
       fetchData() {
         let uid = this.cuid
-        this.user = user_resource.get({id: uid}).then((res) => { return res.json() })
+        user_resource.get({id: uid}).then((res) => { this.user = res.json() })
       },
       editUser(){
         user_resource.update({id: this.user.id}, this.user).then((response) => {

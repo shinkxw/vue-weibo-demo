@@ -7,7 +7,6 @@
         <span>
           <router-link :to="{ name: 'user_show', params: { id: uid } }">查看个人信息</router-link>
         </span>
-        <span>{{ microposts_count }} 条微博</span>
       </section>
       <section class="stats">
         <userstats-view v-if="uid" :id="uid"></userstats-view>
@@ -53,8 +52,9 @@
       fetchData() {
         this.uid = this.$route.params.id
         this.paginate_param = { id: this.uid }
-        this.resource_method = transition.to.path.split('/')[3]
-        this.user = user_resource.get({id: this.uid}).then((res) => { return res.json() })
+        this.resource_method = this.$route.path.split('/')[3]
+        user_resource.get({id: this.uid}).then((res) => { this.user = res.json() })
+        eventHub.$emit('paginate_refresh')
       },
       paginateData(res) {
         this.users = res.data

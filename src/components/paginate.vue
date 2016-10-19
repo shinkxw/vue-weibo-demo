@@ -88,6 +88,18 @@
         activeNum: 0
       }
     },
+    mounted () {
+      if (!this.async) {
+        this.getPages()
+      }
+      this.getData()
+    },
+    created () {
+      eventHub.$on('paginate_refresh', this.refresh)
+    },
+    beforeDestroy () {
+      eventHub.$off('paginate_refresh', this.refresh)
+    },
     methods: {
 
       // 点击页码刷新数据
@@ -251,12 +263,6 @@
         this.pages = [1]
         this.activeNum === 0 ? this.getData() : this.activeNum = 0
       }
-    },
-    mounted () {
-      if (!this.async) {
-        this.getPages()
-      }
-      this.getData()
     },
     watch: {
       // 监听显示数量
