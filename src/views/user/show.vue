@@ -13,13 +13,13 @@
     </aside>
     <div class="col-md-8">
       <follow-view v-if="is_logged && uid" :uid="uid"></follow-view>
-      <template v-if="paginate_param && (micropost_all_count > 0)">
+      <template v-if="paginate_url && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
           <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index">
           </micropost-view>
         </ol>
-        <paginate :resource="user_resource" method="microposts" :param="paginate_param"></paginate>
+        <paginate :url="paginate_url" @pd="paginateData"></paginate>
       </template>
     </div>
   </div>
@@ -33,8 +33,7 @@
         user: {},
         microposts: [],
         micropost_all_count: 1,
-        paginate_param: null,
-        user_resource: user_resource
+        paginate_url: null
       }
     },
     watch: {
@@ -43,8 +42,8 @@
     methods: {
       fetchData() {
         this.uid = this.$route.params.id
-        this.paginate_param = { id: this.uid }
-        user_resource.get({id: this.uid}).then((res) => { this.user = res.json() })
+        this.paginate_url = `users/${this.uid}/microposts`
+        axios.get(`users/${this.uid}`).then((res) => { this.user = res.data })
       },
       paginateData(res) {
         this.microposts = res.data
@@ -61,12 +60,10 @@
     },
     created: function () {
       this.fetchData()
-      eventHub.$on('paginate_data', this.paginateData)
       eventHub.$on('delete_micropost', this.deleteMicropost)
       eventHub.$on('follow_changed', this.followChanged)
     },
     beforeDestroy: function () {
-      eventHub.$off('paginate_data', this.paginateData)
       eventHub.$off('delete_micropost', this.deleteMicropost)
       eventHub.$off('follow_changed', this.followChanged)
     }

@@ -33,15 +33,16 @@
       userLogin(){
         if (this.check_params())
         {
-          user_resource.login(this.user).then((response) => {
-            let jwt = response.text()
+          axios.post('users/login', this.user).then((response) => {
+            let jwt = response.data
             login_info.log_in(jwt, this.need_remember)
             flash_view.next('登录成功', 'success')
             this.after_login()
-          }, (response) => {
-            if (response.status == 422)
+          })
+          .catch((error) => {
+            if (error.response && error.response.status == 422)
             {
-              this.error_message = response.text()
+              this.error_message = error.response.data
             }
           });
         }

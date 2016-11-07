@@ -10,7 +10,7 @@
         </template>
       </li>
     </ul>
-    <paginate :resource="user_resource"></paginate>
+    <paginate :url="paginate_url" @pd="paginateData"></paginate>
   <div>
 </template>
 
@@ -19,14 +19,14 @@
     data() {
       return {
         users: [],
-        user_resource: user_resource
+        paginate_url: 'users'
       }
     },
     methods:{
       deleteUser(id, index){
         if (confirm('此操作将不可恢复，确定要删除吗？'))
         {
-          user_resource.delete({id: id}).then((response) => {
+          axios.delete(`users/${id}`).then((res) => {
             let delete_user = this.users.splice(index, 1)[0]
             flash_view.now(`用户${delete_user.name}已被删除`, 'success')
           })
@@ -36,12 +36,6 @@
         this.users = res.data
         window.scrollTo(0, 0)
       }
-    },
-    created: function () {
-      eventHub.$on('paginate_data', this.paginateData)
-    },
-    beforeDestroy: function () {
-      eventHub.$off('paginate_data', this.paginateData)
     }
   }
 </script>

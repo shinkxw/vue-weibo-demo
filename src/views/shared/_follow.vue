@@ -18,17 +18,18 @@
     },
     methods:{
       refresh(){
-        user_resource.relationship_id({id: this.cuid, followed_id: this.uid}).then((response) => {
-          this.relationship_id = response.json()
+        let url = `users/${this.cuid}/relationship_id`
+        axios.get(url, {params: {followed_id: this.uid}}).then((res) => {
+          this.relationship_id = res.data
         })
       },
       followUser(){
-        relationship_resource.save({followed_id: this.uid}).then((response) => {
+        axios.post('relationships', {followed_id: this.uid}).then((res) => {
           this.after_change()
         })
       },
       unfollowUser(){
-        relationship_resource.delete({id: this.relationship_id}).then((response) => {
+        axios.delete(`relationships/${this.relationship_id}`).then((res) => {
           this.after_change()
         })
       },

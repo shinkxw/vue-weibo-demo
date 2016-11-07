@@ -26,7 +26,7 @@
       del(){
         if (confirm('此操作将不可恢复，确定要删除吗？'))
         {
-          micropost_resource.delete({id: this.micropost.id}).then((response) => {
+          axios.delete(`microposts/${this.micropost.id}`).then((res) => {
             flash_view.now(`该微博已被删除`, 'success')
             eventHub.$emit('delete_micropost', this.index)
           })

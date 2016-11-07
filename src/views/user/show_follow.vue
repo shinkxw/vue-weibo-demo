@@ -26,7 +26,7 @@
             <router-link :to="{name: 'user_show',params: { id: u.id }}">{{u.name}}</router-link>
           </li>
         </ul>
-        <paginate v-if="resource_method" :resource="user_resource" :method="resource_method" :param ="paginate_param"></paginate>
+        <paginate v-if="paginate_url" ref="paginate" :url="paginate_url" @pd="paginateData"></paginate>
       </template>
     </div>
   </div>
@@ -40,9 +40,8 @@
         user: {},
         users: [],
         users_all_count: 1,
-        user_resource: user_resource,
         resource_method: null,
-        paginate_param: null
+        paginate_url: null
       }
     },
     watch: {
@@ -50,11 +49,15 @@
     },
     methods: {
       fetchData() {
-        this.uid = this.$route.params.id
-        this.paginate_param = { id: this.uid }
+        if (this.uid != this.$route.params.id){
+          this.uid = this.$route.params.id
+          axios.get(`users/${this.uid}`).then((res) => { this.user = res.data })
+        }
         this.resource_method = this.$route.path.split('/')[3]
-        user_resource.get({id: this.uid}).then((res) => { this.user = res.json() })
-        eventHub.$emit('paginate_refresh')
+        this.paginate_url = `users/${this.uid}/${this.resource_method}`
+        this.$nextTick(function () {
+          if (this.$refs.paginate){ this.$refs.paginate.refresh() }
+        })
       },
       paginateData(res) {
         this.users = res.data
@@ -64,10 +67,6 @@
     },
     created: function () {
       this.fetchData()
-      eventHub.$on('paginate_data', this.paginateData)
-    },
-    beforeDestroy: function () {
-      eventHub.$off('paginate_data', this.paginateData)
     }
   }
 </script>

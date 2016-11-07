@@ -26,12 +26,12 @@
         </aside>
         <div class="col-md-8">
           <h3>微博动态</h3>
-          <template v-if="paginate_param && (microposts_count > 0)">
+          <template v-if="paginate_url && (microposts_count > 0)">
             <ol class="microposts">
               <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index">
               </micropost-view>
             </ol>
-            <paginate ref="paginate" :resource="user_resource" method="feed" :param="paginate_param"></paginate>
+            <paginate ref="paginate" :url="paginate_url" @pd="paginateData"></paginate>
           </template>
         </div>
       </div>
@@ -59,8 +59,7 @@
         microposts_count: 0,
 
         microposts: [],
-        paginate_param: null,
-        user_resource: user_resource
+        paginate_url: null
       }
     },
     watch: {
@@ -70,26 +69,28 @@
       fetchData() {
         if (this.is_logged) {
           this.refresh_microposts_count()
-          this.paginate_param = { id: this.cuid }
+          this.paginate_url = `users/${this.cuid}/feed`
         }
       },
       postMicropost(){
-        micropost_resource.save(this.micropost).then((response) => {
+        axios.post('microposts', this.micropost).then((response) => {
+          flash_view.next('微博发布成功', 'success')
+          this.micropost = {content: ''}
           this.error_message = ''
           this.refresh_microposts_count()
           this.refresh_microposts()
-          flash_view.next('微博发布成功', 'success')
-          this.micropost = {content: ''}
-        }, (response) => {
-          if (response.status == 422)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status == 422)
           {
-            this.error_message = `微博内容${response.json().content}`
+            this.error_message = `微博内容${error.response.data.content}`
           }
         });
       },
       refresh_microposts_count(){
-        user_resource.microposts_count({id: this.cuid})
-        .then((res) => { this.microposts_count = res.json() })
+        axios.get(`users/${this.cuid}/microposts_count`).then((res) => {
+          this.microposts_count = res.data
+        })
       },
       refresh_microposts () {
         this.$refs.paginate.refresh()
@@ -105,11 +106,9 @@
     },
     created: function () {
       this.fetchData()
-      eventHub.$on('paginate_data', this.paginateData)
       eventHub.$on('delete_micropost', this.deleteMicropost)
     },
     beforeDestroy: function () {
-      eventHub.$off('paginate_data', this.paginateData)
       eventHub.$off('delete_micropost', this.deleteMicropost)
     }
   }

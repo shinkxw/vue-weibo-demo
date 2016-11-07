@@ -25,11 +25,11 @@
     },
     methods:{
       refresh(){
-        user_resource.following_count({id: this.id}).then((response) => {
-          this.following_count = response.json()
+        axios.get(`users/${this.id}/following_count`).then((res) => {
+          this.following_count = res.data
         })
-        user_resource.followers_count({id: this.id}).then((response) => {
-          this.followers_count = response.json()
+        axios.get(`users/${this.id}/followers_count`).then((res) => {
+          this.followers_count = res.data
         })
       }
     },

@@ -55,16 +55,10 @@
         }
       },
 
-      // resource对象
-      resource: {
-        type: Object,
-        default: null
-      },
-
-      // resource对象调用的方法
-      method: {
+      // 请求的路径
+      url: {
         type: String,
-        default: 'get'
+        default: null
       },
 
       // 显示页数
@@ -227,15 +221,15 @@
             this.data[i] !== undefined ? newData.push(this.data[i]) : ''
           }
 
-          eventHub.$emit('paginate_data', newData)
+          this.$emit('pd', newData)
         }
         else
         {
           this.param.page = this.pages[this.activeNum]
           this.param.page_size = this.len
 
-          this.resource[this.method](this.param).then((response) => {
-            let res = response.json()
+          axios.get(this.url, { params: this.param }).then((response) => {
+            let res = response.data
             this.pageTotal = Math.ceil(res.all_count / this.len)
 
             if (this.pages.length !== this.pageLen || this.pageTotal < this.pageLen)
@@ -248,8 +242,11 @@
               this.activeNum = this.pageTotal - 1
             }
 
-            eventHub.$emit('paginate_data', res)
+            this.$emit('pd', res)
           })
+          .catch(function (error) {
+            console.log(error);
+          });
         }
       },
 

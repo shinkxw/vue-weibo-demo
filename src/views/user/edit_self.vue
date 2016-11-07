@@ -36,19 +36,19 @@
     },
     methods: {
       fetchData() {
-        let uid = this.cuid
-        user_resource.get({id: uid}).then((res) => { this.user = res.json() })
+        axios.get(`users/${this.cuid}`).then((res) => { this.user = res.data })
       },
       editUser(){
-        user_resource.update({id: this.user.id}, this.user).then((response) => {
-          let jwt = response.text()
+        axios.put(`users/${this.cuid}`, this.user).then((res) => {
+          let jwt = res.data
           login_info.set_data(jwt)
           flash_view.next('个人资料已更新', 'success')
           router.push({name:'user_show', params: { id: this.user.id }})
-        }, (response) => {
-          if (response.status == 422)
+        })
+        .catch((error) => {
+          if (error.response && error.response.status == 422)
           {
-            this.errors = response.json()
+            this.errors = error.response.data
             this.error_message = '输入有误'
           }
         });
