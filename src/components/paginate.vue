@@ -88,12 +88,6 @@
       }
       this.getData()
     },
-    created () {
-      eventHub.$on('paginate_refresh', this.refresh)
-    },
-    beforeDestroy () {
-      eventHub.$off('paginate_refresh', this.refresh)
-    },
     methods: {
 
       // 点击页码刷新数据
@@ -237,7 +231,7 @@
               this.getPages()
             }
 
-            if (!res.data.length)
+            if (!res.data.length && this.pageTotal > 0)
             {
               this.activeNum = this.pageTotal - 1
             }
@@ -262,6 +256,9 @@
       }
     },
     watch: {
+      'url' (){
+        this.refresh()
+      },
       // 监听显示数量
       'len' (newVal, oldVal) {
         if (!this.async) {

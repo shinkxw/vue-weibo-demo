@@ -19,15 +19,13 @@
     </aside>
     <div class="col-md-8">
       <h3>{{ resource_method == 'following' ? '全部关注' : '粉丝' }}</h3>
-      <template v-if="users_all_count > 0">
-        <ul class="users follow">
-          <li v-for="u of users">
-            <gravatar :alt="u.name" :email="u.email" size="50"></gravatar>
-            <router-link :to="{name: 'user_show',params: { id: u.id }}">{{u.name}}</router-link>
-          </li>
-        </ul>
-        <paginate v-if="paginate_url" ref="paginate" :url="paginate_url" @pd="paginateData"></paginate>
-      </template>
+      <ul class="users follow">
+        <li v-for="u of users">
+          <gravatar :alt="u.name" :email="u.email" size="50"></gravatar>
+          <router-link :to="{name: 'user_show',params: { id: u.id }}">{{u.name}}</router-link>
+        </li>
+      </ul>
+      <paginate v-if="paginate_url" ref="paginate" :url="paginate_url" @pd="paginateData"></paginate>
     </div>
   </div>
 </template>
@@ -55,9 +53,6 @@
         }
         this.resource_method = this.$route.path.split('/')[3]
         this.paginate_url = `users/${this.uid}/${this.resource_method}`
-        this.$nextTick(function () {
-          if (this.$refs.paginate){ this.$refs.paginate.refresh() }
-        })
       },
       paginateData(res) {
         this.users = res.data
