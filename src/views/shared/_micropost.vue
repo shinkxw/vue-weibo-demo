@@ -28,7 +28,7 @@
         {
           axios.delete(`microposts/${this.micropost.id}`).then((res) => {
             flash_view.now(`该微博已被删除`, 'success')
-            eventHub.$emit('delete_micropost', this.index)
+            this.$emit('delete_micropost', this.index)
           })
         }
       }

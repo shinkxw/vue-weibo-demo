@@ -71,6 +71,5 @@ axios.interceptors.response.use((response) => {
 Object.keys(Filters).forEach(k => Vue.filter(k, Filters[k]));
 
 ComponentsMap(Vue)//加载组件
-window.eventHub = new Vue()//事件中心
 
 var app = new Vue({ el: '#app', router: router })

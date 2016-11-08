@@ -12,11 +12,12 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <follow-view v-if="is_logged && uid" :uid="uid"></follow-view>
+      <follow-view v-if="is_logged && uid" :uid="uid" @follow_changed="followChanged"></follow-view>
       <template v-if="paginate_url && (micropost_all_count > 0)">
         <h3>微博 ({{ micropost_all_count }})</h3>
         <ol class="microposts">
-          <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index">
+          <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index"
+            @delete_micropost="deleteMicropost">
           </micropost-view>
         </ol>
         <paginate :url="paginate_url" @pd="paginateData"></paginate>
@@ -60,12 +61,6 @@
     },
     created: function () {
       this.fetchData()
-      eventHub.$on('delete_micropost', this.deleteMicropost)
-      eventHub.$on('follow_changed', this.followChanged)
-    },
-    beforeDestroy: function () {
-      eventHub.$off('delete_micropost', this.deleteMicropost)
-      eventHub.$off('follow_changed', this.followChanged)
     }
   }
 </script>

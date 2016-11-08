@@ -28,7 +28,8 @@
           <h3>微博动态</h3>
           <template v-if="paginate_url && (microposts_count > 0)">
             <ol class="microposts">
-              <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index">
+              <micropost-view v-for="(m, index) of microposts" :micropost="m" :index="index"
+                @delete_micropost="deleteMicropost">
               </micropost-view>
             </ol>
             <paginate ref="paginate" :url="paginate_url" @pd="paginateData"></paginate>
@@ -106,10 +107,6 @@
     },
     created: function () {
       this.fetchData()
-      eventHub.$on('delete_micropost', this.deleteMicropost)
-    },
-    beforeDestroy: function () {
-      eventHub.$off('delete_micropost', this.deleteMicropost)
     }
   }
 </script>
